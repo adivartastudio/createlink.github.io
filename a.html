@@ -1,0 +1,201 @@
+<div class="wrapper-a">
+  <h1>Buat Link Undangan</h1>
+
+  <label for="namaTamu" class="label-input">Tuliskan Nama Tamu</label>
+  <input type="text" id="namaTamu" placeholder="Contoh: Bapak Andi & Keluarga" />
+
+  <div class="template-select">
+    <button class="toggle-template-btn" onclick="toggleTemplateList()">Lihat Template</button>
+    <div id="templateList" class="template-list hidden">
+      <label>
+        <input type="radio" name="template" value="1" checked />
+        <strong>Template 1</strong>
+        <pre>
+Kepada Yth.  
+Bapak/Ibu/Saudara/i (namatamu)
+
+Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.
+
+Berikut link undangan digital kami, yang memuat informasi lengkap mengenai waktu dan tempat acara:
+📎 (link)
+
+Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu di hari bahagia kami.
+
+Mohon maaf apabila undangan ini hanya dapat kami sampaikan melalui pesan ini.  
+Semoga kita semua diberikan kesehatan dan kelapangan waktu untuk dapat bertemu di hari istimewa tersebut.
+
+Terima kasih atas perhatian dan pengertiannya. 🙏
+        </pre>
+      </label>
+
+      <label>
+        <input type="radio" name="template" value="2" />
+        <strong>Template 2</strong>
+        <pre>
+Kepada Yth.  
+(namatamu)
+
+Dengan penuh kebahagiaan, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan menjadi bagian dari momen berharga dalam hidup kami, yaitu hari pernikahan kami.
+
+Untuk informasi lengkap, silakan buka undangan digital kami melalui tautan berikut:
+📎 (link)
+
+Kami akan sangat berbahagia jika Bapak/Ibu/Saudara/i berkenan hadir dan turut memberikan doa serta restu.
+
+Mohon maaf apabila undangan ini hanya kami sampaikan melalui pesan singkat ini.  
+Semoga kita dapat bertemu dan berbagi kebahagiaan bersama pada hari yang telah ditentukan.
+
+Terima kasih banyak atas perhatian dan waktu yang diluangkan. 🌸
+        </pre>
+      </label>
+
+      <label>
+        <input type="radio" name="template" value="3" />
+        <strong>Template 3</strong>
+        <pre>
+Kepada Yth.  
+Bapak/Ibu/Saudara/i (namatamu)
+
+Dengan ini kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami, yang akan dilangsungkan pada waktu dan tempat yang tertera dalam undangan digital berikut:
+📎 (link)
+
+Kehadiran dan doa restu dari Bapak/Ibu/Saudara/i akan menjadi kebahagiaan tersendiri bagi kami.
+
+Kami mohon maaf sebesar-besarnya apabila undangan ini hanya kami kirimkan melalui pesan ini, dan berharap dapat tetap menjaga kehangatan silaturahmi.
+
+Terima kasih atas perhatian dan pengertiannya. 🙏
+        </pre>
+      </label>
+    </div>
+  </div>
+
+  <button id="buatUndanganBtn" onclick="buatUndangan()">Buat Undangan</button>
+  <button id="resetFormBtn" onclick="resetForm()">Reset</button>
+
+  <div class="hasil-undangan hidden" id="hasilUndangan">
+    <h2>Hasil Undangan</h2>
+    <textarea id="hasilPesan" readonly></textarea>
+    <div class="aksi-tombol">
+      <button id="salinBtn" onclick="salinPesan()">Salin Pesan</button>
+      <a id="waLink" class="wa-link" href="#" target="_blank">Kirim via WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="a.css" />
+
+<script>
+  function toggleTemplateList() {
+    const list = document.getElementById("templateList");
+    list.classList.toggle("hidden");
+    kirimTinggiKeInduk(); // update tinggi iframe saat toggle
+  }
+
+  function buatUndangan() {
+    const nama = document.getElementById("namaTamu").value.trim();
+    const template = document.querySelector('input[name="template"]:checked').value;
+    const hasil = document.getElementById("hasilPesan");
+    const hasilBox = document.getElementById("hasilUndangan");
+    const waLink = document.getElementById("waLink");
+
+    if (!nama) {
+      alert("Silakan masukkan nama tamu.");
+      return;
+    }
+
+    const link = `https://diaryinvitation.com/Inivitation/partika-ayu?nama=${encodeURIComponent(nama)}`;
+
+    let pesan = "";
+
+    if (template === "1") {
+      pesan = `Kepada Yth.  
+Bapak/Ibu/Saudara/i ${nama}
+
+Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami.
+
+Berikut link undangan digital kami, yang memuat informasi lengkap mengenai waktu dan tempat acara:
+📎 ${link}
+
+Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu di hari bahagia kami.
+
+Mohon maaf apabila undangan ini hanya dapat kami sampaikan melalui pesan ini.  
+Semoga kita semua diberikan kesehatan dan kelapangan waktu untuk dapat bertemu di hari istimewa tersebut.
+
+Terima kasih atas perhatian dan pengertiannya. 🙏`;
+    } else if (template === "2") {
+      pesan = `Kepada Yth.  
+${nama}
+
+Dengan penuh kebahagiaan, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan menjadi bagian dari momen berharga dalam hidup kami, yaitu hari pernikahan kami.
+
+Untuk informasi lengkap, silakan buka undangan digital kami melalui tautan berikut:
+📎 ${link}
+
+Kami akan sangat berbahagia jika Bapak/Ibu/Saudara/i berkenan hadir dan turut memberikan doa serta restu.
+
+Mohon maaf apabila undangan ini hanya kami sampaikan melalui pesan singkat ini.  
+Semoga kita dapat bertemu dan berbagi kebahagiaan bersama pada hari yang telah ditentukan.
+
+Terima kasih banyak atas perhatian dan waktu yang diluangkan. 🌸`;
+    } else if (template === "3") {
+      pesan = `Kepada Yth.  
+Bapak/Ibu/Saudara/i ${nama}
+
+Dengan ini kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami, yang akan dilangsungkan pada waktu dan tempat yang tertera dalam undangan digital berikut:
+📎 ${link}
+
+Kehadiran dan doa restu dari Bapak/Ibu/Saudara/i akan menjadi kebahagiaan tersendiri bagi kami.
+
+Kami mohon maaf sebesar-besarnya apabila undangan ini hanya kami kirimkan melalui pesan ini, dan berharap dapat tetap menjaga kehangatan silaturahmi.
+
+Terima kasih atas perhatian dan pengertiannya. 🙏`;
+    }
+
+    hasil.value = pesan;
+    hasilBox.classList.remove("hidden");
+    kirimTinggiKeInduk();
+
+    const encodedPesan = encodeURIComponent(pesan);
+    waLink.href = `https://wa.me/?text=${encodedPesan}`;
+  }
+
+  function resetForm() {
+    document.getElementById("namaTamu").value = "";
+    document.getElementById("hasilPesan").value = "";
+    document.getElementById("hasilUndangan").classList.add("hidden");
+    document.getElementById("waLink").href = "#";
+    document.getElementById("templateList").classList.add("hidden");
+    document.querySelector('input[name="template"][value="1"]').checked = true;
+    kirimTinggiKeInduk();
+  }
+
+  function salinPesan() {
+    const pesan = document.getElementById("hasilPesan");
+    pesan.select();
+    pesan.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    alert("Pesan berhasil disalin!");
+  }
+
+  // Kirim tinggi iframe ke parent window
+  function kirimTinggiKeInduk() {
+    const tinggi = document.body.scrollHeight;
+    parent.postMessage({ frameId: "iframe-a", height: tinggi }, "*");
+  }
+
+  // Kirim tinggi saat halaman pertama kali dimuat
+  kirimTinggiKeInduk();
+
+  // Monitor perubahan isi untuk kirim tinggi otomatis
+  const observer = new MutationObserver(() => {
+    kirimTinggiKeInduk();
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+  });
+</script>
+
+<link rel="stylesheet" href="a.css" />

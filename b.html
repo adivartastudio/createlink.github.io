@@ -1,0 +1,43 @@
+<footer id="footer-contact" class="footer-section">
+  <div class="container">
+    <div class="footer-logo">
+      <img src="logo.png" alt="Logo Adivarta Studio" />
+    </div>
+    <div class="footer-content">
+      <div class="contact-info">
+        <h3>Kontak Kami</h3>
+        <a href="https://instagram.com/adivarta.studio" target="_blank" rel="noopener noreferrer" class="social-link">Instagram</a> | 
+        <a href="https://tiktok.com/@adivarta.studio" target="_blank" rel="noopener noreferrer" class="social-link">Tiktok</a> | 
+        <a href="https://wa.me/62895329364325" target="_blank" rel="noopener noreferrer" class="social-link">Whatsapp</a> | 
+        <a href="mailto:adivartastudio@gmail.com" class="social-link">Email</a>
+      </div>
+    </div>
+
+    <div class="footer-copyright">
+      <p>&copy; 2025 Adivarta Studio. Semua hak cipta dilindungi.</p>
+    </div>
+  </div>
+</footer>
+
+<link rel="stylesheet" href="b.css" />
+
+<script>
+  function kirimTinggiKeInduk() {
+    const tinggi = document.body.scrollHeight;
+    parent.postMessage({ frameId: "iframe-b", height: tinggi }, "*");
+  }
+
+  kirimTinggiKeInduk();
+
+  const observer = new MutationObserver(() => {
+    kirimTinggiKeInduk();
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+  });
+</script>
+
+<link rel="stylesheet" href="b.css" />
